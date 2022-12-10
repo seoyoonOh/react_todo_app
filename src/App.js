@@ -53,7 +53,7 @@ export default class App extends Component {
       completed: false,
     };
 
-    this.setState({ todoData: [...this.state.todoData, newTodo] });
+    this.setState({ todoData: [...this.state.todoData, newTodo], value: "" });
   };
 
   handleCompleteChange = (id) => {
