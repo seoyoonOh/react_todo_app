@@ -11,11 +11,11 @@ export default class App extends Component {
     float: "right",
   };
 
-  getStyle = () => {
+  listStyle = (completed) => {
     return {
       padding: "10px",
       borderBottom: "1px #ccc dotted",
-      textDecoration: "none",
+      textDecoration: completed ? "line-through" : "",
     };
   };
 
@@ -24,7 +24,7 @@ export default class App extends Component {
       {
         id: "1",
         title: "공부하기",
-        completed: true,
+        completed: false,
       },
       {
         id: "2",
@@ -56,6 +56,16 @@ export default class App extends Component {
     this.setState({ todoData: [...this.state.todoData, newTodo] });
   };
 
+  handleCompleteChange = (id) => {
+    let newTodoData = this.state.todoData.map((data) => {
+      if (data.id === id) {
+        data.completed = !data.completed;
+      }
+      return data;
+    });
+    this.setState({ todoData: newTodoData });
+  };
+
   render() {
     return (
       <div className="container">
@@ -65,8 +75,8 @@ export default class App extends Component {
           </div>
 
           {this.state.todoData.map((data) => (
-            <div style={this.getStyle()} key={data.id}>
-              <input type="checkbox" defaultChecked={data.completed} /> {data.title}
+            <div style={this.listStyle(data.completed)} key={data.id}>
+              <input type="checkbox" onChange={() => this.handleCompleteChange(data.id)} defaultChecked={false} /> {data.title}
               <button style={this.btnStyle} onClick={() => this.handleClick(data.id)}>
                 X
               </button>
