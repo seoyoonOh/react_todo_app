@@ -1,22 +1,8 @@
 import React from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import List from "./List";
 
 export default function Lists({ todoData, setTodoData }) {
-  const handleCompleteChange = (id) => {
-    let newTodoData = todoData.map((data) => {
-      if (data.id === id) {
-        data.completed = !data.completed;
-      }
-      return data;
-    });
-    setTodoData(newTodoData);
-  };
-
-  const handleClick = (id) => {
-    let newTodoData = todoData.filter((data) => data.id !== id);
-    setTodoData(newTodoData);
-  };
-
   const handleEnd = (result) => {
     if (!result.destination) return;
 
@@ -39,21 +25,7 @@ export default function Lists({ todoData, setTodoData }) {
               {todoData.map((data, index) => (
                 <Draggable key={data.id} draggableId={data.id.toString()} index={index}>
                   {(provided, snapshot) => (
-                    <div
-                      key={data.id}
-                      {...provided.draggableProps}
-                      ref={provided.innerRef}
-                      {...provided.dragHandleProps}
-                      className={`${snapshot.isDragging ? "bg-gray-300" : "bg-gray-100"} flex items-center justify-between w-full px-4 py-2 my-2 text-gray-600border rounded`}
-                    >
-                      <div className="items-center">
-                        <input type="checkbox" onChange={() => handleCompleteChange(data.id)} defaultChecked={false} />{" "}
-                        <span className={data.completed ? "line-through" : undefined}>{data.title} </span>
-                      </div>
-                      <div className="items-center">
-                        <button onClick={() => handleClick(data.id)}>X</button>
-                      </div>
-                    </div>
+                    <List key={data.id} id={data.id} title={data.title} completed={data.completed} todoData={todoData} setTodoData={setTodoData} provided={provided} snapshot={snapshot} />
                   )}
                 </Draggable>
               ))}
