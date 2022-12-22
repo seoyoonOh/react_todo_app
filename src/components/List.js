@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function List({ key, id, title, completed, todoData, setTodoData, provided, snapshot }) {
+const List = React.memo(({ key, id, title, completed, todoData, setTodoData, provided, snapshot }) => {
+  console.log("List Component");
   const handleCompleteChange = (id) => {
     let newTodoData = todoData.map((data) => {
       if (data.id === id) {
@@ -24,11 +25,14 @@ export default function List({ key, id, title, completed, todoData, setTodoData,
       className={`${snapshot.isDragging ? "bg-gray-300" : "bg-gray-100"} flex items-center justify-between w-full px-4 py-2 my-2 text-gray-600border rounded`}
     >
       <div className="items-center">
-        <input type="checkbox" onChange={() => handleCompleteChange(id)} defaultChecked={false} /> <span className={completed ? "line-through" : undefined}>{title} </span>
+        <input type="checkbox" onChange={() => handleCompleteChange(id)} defaultChecked={false} />{" "}
+        <span className={completed ? "line-through" : undefined}>{title} </span>
       </div>
       <div className="items-center">
         <button onClick={() => handleClick(id)}>X</button>
       </div>
     </div>
   );
-}
+});
+
+export default List;
