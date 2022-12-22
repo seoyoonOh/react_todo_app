@@ -11,10 +11,12 @@ const List = React.memo(({ key, id, title, completed, todoData, setTodoData, pro
       return data;
     });
     setTodoData(newTodoData);
+    localStorage.setItem("todoData", JSON.stringify(newTodoData));
   };
   const handleClick = (id) => {
     let newTodoData = todoData.filter((data) => data.id !== id);
     setTodoData(newTodoData);
+    localStorage.setItem("todoData", JSON.stringify(newTodoData));
   };
   const handleEditChange = (event) => {
     setEditedTitle(event.target.value);
@@ -28,6 +30,7 @@ const List = React.memo(({ key, id, title, completed, todoData, setTodoData, pro
       return data;
     });
     setTodoData(newTodoData);
+    localStorage.setItem("todoData", JSON.stringify(newTodoData));
     setIsEditing(false);
   };
 

@@ -14,6 +14,7 @@ const Lists = React.memo(({ todoData, setTodoData }) => {
     //destination index 위치에 아이템 추가
     newTodoData.splice(result.destination.index, 0, reorderedItem);
     setTodoData(newTodoData);
+    localStorage.setItem("todoData", JSON.stringify(newTodoData));
   };
 
   return (
